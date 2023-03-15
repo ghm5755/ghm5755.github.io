@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Project 1 - Gavin Miyagawa</title>
+    <link rel="stylesheet" href="styles.css">
+<script>
+    'use strict';
+    if ( !document.getElementById) {
+        window.location = 'legacy.html';
+    }
+	var data = {
+		init: ['Which seems most interesting?', 'Feline', 'Canine', 'Esquine'],
+		Feline: ['Where do you want it to live?', 'Savannah', 'Jungle', 'House', 'Woods'],
+        Savannah: ['Would you like it to have a mane?', "Mane", "No Mane"],
+        "No Mane": ["How quickly would you like it to run?", "Fast", "Average"],
+        Jungle: ['Would you like stripes or spots?', 'Stripes', 'Spots'],
+        House: ['What length hair would you like it to have?', 'Long', 'Short'],
+        Canine: ['What size would be best?', 'Small', 'Medium', 'Large'],
+        Small: ['How much energy should it have?', 'Hyper', 'Calm'],
+        Results: ['Lion', 'Cheetah', 'Serval']
+	}
+    var answers = [];
+    var names = ['Jim'];
+    var results = ['The selected canine had the following traits: large'];
+    function $(id) {
+      return document.getElementById(id);
+    }
+    function $$(tag, num) {
+      return document.getElementsByTagName(tag)[num];
+    }
+    function $$$(cl) {
+        return document.getElementsByClassName(cl);
+    }
+    function initialize() {
+        if (window.localStorage) { 
+            if (localStorage.getItem("names") === null) { //check for whether items are saved in local storage
+                names = JSON.parse(localStorage.getItem("names")); //fetch from storage
+                results = JSON.parse(localStorage.getItem("results")); // */
+            }
+        }
+        //sidebar(); // When uploaded this creates issues so it was commented out in order to allow page to run
+        build('init', 0); // pulls from data and starts at init
+    }
+    function sidebar() {
+        if ($$$("side").length > 0) { //clears so that it can be updated and avoid potential repetition
+            kill("side", 0);
+        }
+        let divEle = document.createElement('div'); 
+        divEle.className = "side";
+        for (let i = 0; i < names.length; i++) { //iterate for each previous result
+            let pEle = document.createElement('p');
+            let pEle2 = document.createElement('p');
+            pEle.textContent = names[i];
+            pEle2.textContent = results[i];
+            divEle.appendChild(pEle, divEle);
+            divEle.appendChild(pEle2, divEle);
+        }
+        $$('body', 0).appendChild(divEle, $$('body', 0).lastChild);
+    }
+
+    function build(sel, depth) {
+        while($$$("question").length > depth) {
+            //kill the last select
+            answers[$$$("question").length] = '';
+            kill("question", $$$("question").length-1); 
+        } 
+        if ($$$("endForm").length > 0) {
+            kill("endForm", 0);
+        }
+        answers[depth] = sel;
+        let divEle = document.createElement('div');
+        let hEle = document.createElement('h2');
+        if (data[sel]) { //continues through if there are remaining nodes 
+            divEle.className = "question";
+            hEle.textContent = data[sel][0];
+            divEle.appendChild(hEle, divEle);
+            let sEle = document.createElement("select");
+            sEle.onchange = function() {build(this.value, depth+1);};
+            sEle.appendChild(addOpt('Select an option'));
+            for (var i = 1; i < data[sel].length; i++) {
+                sEle.appendChild(addOpt(data[sel][i]));
+            }
+            divEle.appendChild(sEle, divEle);
+        } else {
+            divEle.className = "endForm";
+            //*
+            hEle.textContent = "Your selected animal is...";
+            divEle.appendChild(hEle, divEle);
+            // */
+            let formEle = document.createElement('form');
+            formEle.name = 'endForm';
+            let labEle = document.createElement('label');
+            labEle.textContent = "The selected " + answers[1] + " had the following traits: " + answers[2];
+            for (let i = 3; i < answers.length; i++) {
+                labEle.textContent += ', ' + answers[i];
+            }
+            divEle.appendChild(labEle, divEle);
+            let pEle = document.createElement('p');
+            let inEle = document.createElement('input')
+            let submit = document.createElement('button');
+            submit.textContent = 'Submit';
+            submit.onclick = function() {saveResult()};
+            submit.type="button";
+            inEle.type = 'text';
+            inEle.name = 'name';
+            pEle.textContent = "Your Name: "
+            pEle.appendChild(inEle, pEle);
+            formEle.appendChild(pEle, formEle);
+            formEle.appendChild(submit, formEle);
+            divEle.appendChild(formEle, divEle);
+        }
+        divEle.style.position = 'relative';
+        divEle.style.left = '10px';
+        $$('body', 0).appendChild(divEle, $$('body', 0).lastChild);
+        function aniFrame(timestamp){
+            let pos = parseInt(divEle.style.left);
+            if(pos-10 < 50*depth){
+                divEle.style.left = parseInt(divEle.style.left) + 2 + 'px';
+                requestAnimationFrame(aniFrame);
+            }
+        }
+        requestAnimationFrame(aniFrame);
+        
+        
+    }
+    function saveResult() {
+        let currentName = document.forms["endForm"]["name"].value;
+        if (currentName == "") {
+            alert("Name must be filled out");
+            return false;
+        }
+        names[names.length] = currentName;
+        results[results.length] = document.getElementsByTagName('label')[0].textContent;
+        localStorage.setItem("names", JSON.stringify(names));
+        localStorage.setItem("results", JSON.stringify(results));
+        //sidebar();
+    }
+    function addOpt(val) {
+        let optEle = document.createElement("option");
+        optEle.value = val;
+        optEle.text = val;
+        return optEle;
+    }
+
+    function kill(thing, index){
+        $$$(thing)[index].remove();
+
+    }
+	
+
+</script>
+</head>
+<body onload="initialize()">
+
+<body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

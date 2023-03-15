@@ -1,0 +1,23 @@
+body {
+    background-color: aliceblue;
+}
+div {
+    border: 1px black solid;
+    padding: 10px;
+    margin-bottom:  20px;
+    border-radius: 10px;
+    background-color: #a78358;
+}
+.question, .endForm {
+    position: relative;
+    left: 20px;
+    top: 30px;
+    width: 400px;
+    
+}
+.side {
+    position: absolute;
+    left: auto;
+    right: 30px;
+    top: 30px;
+}
