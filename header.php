@@ -25,10 +25,7 @@
                         <li><a href="iste340.php">Client Programming</a></li>
                     </ul>
                 </li>
-                <li><a href="about.php">About</a>
-                    <ul>
-                        <li><a href="contact.php">Comments</a></li>
-                    </ul>
+                    <li><a href="about.php">About</a>
                 </li>
                 <img src="assets/images/logo.png" alt="Logo">
         </nav>
