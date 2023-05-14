@@ -1,3 +1,3 @@
 # ghm5755.github.io
 
-theme: minima
+Personal Portfolio for previous classwork
