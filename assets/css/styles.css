@@ -1,0 +1,81 @@
+body {
+    padding: 1em;
+}
+/*
+Header styling that only applies to the name above the boxes
+*/
+header {
+    text-align:center;
+    font-size: 2.5em;
+    font-family: Lucida, cursive, serif;
+    font-weight:bold;
+    padding-bottom: 0.5em;
+}
+/*
+Standard text for labels
+*/
+h1, h2 {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', serif;
+}
+/*
+Paragraph font and width control
+*/
+p {
+    max-width: 60vw;
+    font-family: 'Segoe Print', Helvetica, serif;
+}
+/*
+Making content boxes to contain the separated pieces of information, they are 
+centered on the page and are limited in height in order to ensure there is no 
+scrolling for full size browsers.
+*/
+section {
+    background-color: #979797;
+    padding: 1em;
+    width: 80%;
+    margin-bottom: 1em;
+    border-radius: 15px;
+    height: 12em;
+    margin-left:auto;
+    margin-right:auto;
+}
+.me {
+    padding-bottom: 1.5em;
+}
+.work {
+    column-count: 3;
+    height: 13em;
+    column-gap: 2em;
+    column-rule-style: solid;
+}
+/*
+Link color control
+*/
+a:link, a:visited {
+    color: black;
+}
+a:hover {
+    color: lightsteelblue;
+}
+a:active {
+    color: blue;
+}
+img {
+    height: 12em;
+    border-radius: 15px;
+    float: left;
+    margin-right: 2em;
+}
+@media only screen and (max-width: 900px) {
+    body {
+        font-size: 14px;
+    }
+    section{
+         height: 60%;
+    }
+}
+@media only screen and (max-width: 500px) {
+    section{
+         height: 80%;
+    }
+}
